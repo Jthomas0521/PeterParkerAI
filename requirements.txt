@@ -1,0 +1,9 @@
+streamlit
+requests
+pandas
+fastapi
+uvicorn
+requests
+beautifulsoup4
+selenium
+webdriver-manager

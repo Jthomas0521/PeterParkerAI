@@ -1,0 +1,20 @@
+version: "3.11"
+
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "${FASTAPI_PORT}:${FASTAPI_PORT}"
+    env_file:
+      - .env
+    restart: always
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "${STREAMLIT_PORT}:${STREAMLIT_PORT}"
+    env_file:
+      - .env
+    depends_on:
+      - backend
+    restart: always
