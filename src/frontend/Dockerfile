@@ -1,10 +1,10 @@
-FROM python:3.11-bookworm as build
+FROM python:3.12-bookworm as build
 
 WORKDIR /app
 
 # Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.frontend.txt .
+RUN pip install --no-cache-dir -r requirements.frontend.txt
 
 # Copy Streamlit app
 COPY . .

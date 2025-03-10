@@ -1,8 +1,8 @@
-version: "3.11"
+# version: "3.12"
 
 services:
   backend:
-    build: ./backend
+    build: ./src/backend
     ports:
       - "${FASTAPI_PORT}:${FASTAPI_PORT}"
     env_file:
@@ -10,7 +10,7 @@ services:
     restart: always
 
   frontend:
-    build: ./frontend
+    build: ./src/frontend
     ports:
       - "${STREAMLIT_PORT}:${STREAMLIT_PORT}"
     env_file:

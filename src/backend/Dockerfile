@@ -1,10 +1,10 @@
-FROM python:3.11-bookworm as build
+FROM python:3.12-bookworm as build
 
 WORKDIR /app
 
 # Install dependencies
-COPY requirements.txt .
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements.backend.txt .
+RUN pip install --no-cache-dir -r requirements.backend.txt
 
 # Copy source code
 COPY . .
