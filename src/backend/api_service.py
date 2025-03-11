@@ -1,15 +1,23 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, HTTPException
+from pydantic import BaseModel
 from dotenv import load_dotenv
 from crawler import crawl_website
-import json
 import os
+import logging
 
 load_dotenv()
 
 app = FastAPI()
 
+class CrawlRequest(BaseModel):
+    url: str
+    use_selenium: bool = os.getenv("USE_SELENIUM", "False").lower() == "true"
 
-@app.get("/crawl")
-def crawl(url: str, selenium: bool = os.getenv("USE_SELENIUM", "False").lower() == "true"):
-    result = crawl_website(url, use_selenium=selenium)
-    return json.loads(result.to_json(orient="records"))
+@app.post("/crawl")
+def crawl(request: CrawlRequest):
+    try:
+        result = crawl_website(request.url, use_selenium=request.use_selenium)
+        return result.to_dict(orient="records")
+    except Exception as e:
+        logging.error(f"An error occurred while crawling the website: {e}")
+        raise HTTPException(status_code=500, detail=str(e))

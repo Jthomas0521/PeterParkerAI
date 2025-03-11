@@ -8,6 +8,8 @@ services:
     env_file:
       - .env
     restart: always
+    networks:
+      - app-network
 
   frontend:
     build: ./src/frontend
@@ -18,3 +20,9 @@ services:
     depends_on:
       - backend
     restart: always
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
