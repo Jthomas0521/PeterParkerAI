@@ -9,9 +9,11 @@ load_dotenv()
 
 app = FastAPI()
 
+
 class CrawlRequest(BaseModel):
     url: str
     use_selenium: bool = os.getenv("USE_SELENIUM", "False").lower() == "true"
+
 
 @app.post("/crawl")
 def crawl(request: CrawlRequest):
